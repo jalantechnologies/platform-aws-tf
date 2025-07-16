@@ -46,7 +46,10 @@ resource "helm_release" "doppler_kubernetes_operator" {
 }
 
 resource "kubernetes_manifest" "cluster_issuer" {
-  depends_on = [helm_release.cert_manager]
+  depends_on = [
+    module.eks,                   
+    helm_release.cert_manager
+  ]
 
   manifest = {
     "apiVersion" = "cert-manager.io/v1"
